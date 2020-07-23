@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+{% load common %}
+{% load static %}
+
+<html lang="en" dir="ltr">
+<head>
+  
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<style media="screen">
+.item:hover{
+  background-color: #f8f9fa;
+  cursor: pointer;
+}
+</style>
+<title>Info</title>
+
+<main role="main">
+  <div class="container">
+    <section class="d-flex flex-row flex-nowrap align-items-center px-5 pt-5 pb-4">
+      <div class="mr-3">
+        <img class="img-fluid" src="{{product.icon.url}}" alt="" width="80" height="80">
+      </div>
+      <div class="d-flex flex-column flex-nowrap">
+        <h4>{{product.title}}</h4>
+        <small class="text-muted">{{ product.trim }}</small>
+      </div>
+    </section>
+
+    <section class="row">
+      <div class="col-md-8">
+
+        <div class="my-4 ml-4 mr-0">
+          <div class="border rounded bg-white p-3 mb-4">
+            <img class="img-fluid w-100" src="{{ product.image.url }}" alt="">
+          </div>
+          <div class="border rounded bg-white p-3 text-right">
+            {{product.image}}
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-md-4">
+        <div class="my-4 ml-0 mr-5 border-top">
+          <div class="p-3 border-bottom">{% is_voted product user as pvoted %}
+            <a href="{% url 'upvote' product.slug %}?next={{request.build_absolute_uri}}" class="btn btn-lg {% if not pvoted %}btn-success{% else %}btn-danger{% endif %} px-5 rounded" type="button" name="button">
+              {% if not pvoted %}
+                <i class="fas fa-caret-up fa-fw fa-lg"></i>
+                <h6 class="d-inline-block">UPVOTE</h6>
+              {% else %}
+                <i class="fas fa-caret-down fa-fw fa-lg"></i>
+                <h6 class="d-inline-block">DOWNVOTE</h6>
+              {% endif %}
+            </a>
+          </div>
+
+          <div class="p-3 border-bottom">
+            <a type="button" class="btn btn-sm bg-white border text-muted small" href="{{product.url}}" target="_blank">
+              <i class="fab fa-safari"></i>
+              {{product.url}}
+            </a>
+          </div>
+          <div class="p-3 border-bottom">
+            <h5>{{product|get_votes}} vote(s)</h5>
+          </div>
+          <div class="p-3 border-bottom">
+            <h6 class="text-muted">Recent Votes</h6>
+            {% get_recent_votes product as recent_votes %}
+            <table class="table">
+              {% for uinput in recent_votes %}
+                {% with uinput.user as vote_user %}
+              <tr>
+                <td>
+                  <i class="fas fa-user"></i>
+                  {{vote_user.username}}
+                </td>
+                <td>
+                  <i class="fas fa-clock"></i>
+                  {{uinput.mod_at|timesince}}
+                </td>
+              </tr>
+              {% endwith %}
+            {% endfor %}
+            </table>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+</main>
+
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+ <!-- LOADING AREA START ===== -->
+    <div class="loading-area">
+        <div class="loading-box"></div>
+        <div class="loading-pic">
+            <div class='load-pin load-bounce'></div>
+            <div class='load-pulse'></div>
+            <div class="cssload-container">
+                <div class="cssload-loading"><i></i><i></i><i></i><i></i></div>
+            </div>
+        </div>
+    </div>
+    <!-- LOADING AREA  END ====== -->
+
+    <!-- JAVASCRIPT  FILES ========================================= -->
+    <script src="{% static 'js\jquery-2.2.0.min.js' %}"></script>
+    <!-- JQUERY.MIN JS -->
+    <script src="'{% static 'js\moment.min.js' %}"></script>
+    <!-- FOR datetimepicker -->
+    <script src="{% static 'js\bootstrap.min.js' %}"></script>
+    <!-- BOOTSTRAP.MIN JS -->
+    <script src="{% static 'js\bootstrap-select.min.js' %}"></script>
+    <!-- Form js -->
+    <script src="{% static 'js\bootstrap-slider.min.js' %}"></script>
+    <!-- Form js -->
+    <script src="{% static 'js\bootstrap-datetimepicker.js' %}"></script>
+    <!-- Form js -->
+    <script src="{% static 'js\jquery.bootstrap-touchspin.min.js' %}"></script>
+    <!-- FORM JS -->
+
+    <script src="{% static 'js\magnific-popup.min.js' %}"></script>
+    <!-- MAGNIFIC-POPUP JS -->
+    <script src="{% static 'js\waypoints.min.js' %}"></script>
+    <!-- WAYPOINTS JS -->
+    <script src="{% static 'js\counterup.min.js' %}"></script>
+    <!-- COUNTERUP JS -->
+    <script src="{% static 'js\waypoints-sticky.min.js' %}"></script>
+    <!-- COUNTERUP JS -->
+
+    <script src="{% static 'js\isotope.pkgd.min.js' %}"></script>
+    <!-- MASONRY  -->
+
+    <script src="{% static 'js\owl.carousel.min.js' %}"></script>
+    <!-- OWL  SLIDER  -->
+    <script src="{% static 'js\jquery.owl-filter.js' %}"></script>
+
+    <script src="{% static 'js\stellar.min.js' %}"></script>
+    <!-- PARALLAX BG IMAGE   -->
+    <script src="{% static 'js\jquery.bgscroll.js' %}"></script>
+    <!-- BACKGROUND SCROLL -->
+
+    <script src="{% static 'js\dropzone.js' %}"></script>
+    <!-- IMAGE UPLOAD  -->
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_8C7p0Ws2gUu7wo0b6pK9Qu7LuzX2iWY&libraries=places&callback=initAutocomplete"></script>
+    <script src="{% static 'js\infobox.min.js' %}"></script>
+    <!-- MAP CLUSTER  -->
+    <script src="{% static 'js\markerclusterer.js' %}"></script>
+    <!-- MAP CLUSTER  -->
+    <script src="{% static 'js\maps.js' %}"></script>
+    <!-- MAP CLUSTER  -->
+    <script src="{% static 'js\map-cluster-rating.js' %}"></script>
+    <!-- MAP CLUSTER  -->
+
+    <script src="{% static 'js\m-custom-scrollbar.min.js' %}"></script>
+    <!-- my account left panel scroller -->
+
+    <!-- Timing Countdown -->
+    <script src="{% static 'js\kinetic.js' %}"></script>
+    <script src="{% static 'js\jquery.final-countdown.js' %}"></script>
+
+    <script src="{% static 'js\custom.js' %}"></script>
+    <!-- CUSTOM FUCTIONS  -->

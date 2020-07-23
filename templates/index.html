@@ -1,0 +1,594 @@
+﻿{% load static %}
+{% load common %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="robots" content="">
+    <meta name="description" content="">
+
+    <!-- FAVICONS ICON -->
+    <link rel="icon" href="{% static 'images\favicon.ico' %}" type="image/x-icon">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'images\favicon.png' %}">
+
+    <!-- PAGE TITLE HERE -->
+    <title> Artists Listings </title>
+
+    <!-- MOBILE SPECIFIC -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- [if lt IE 9]>
+        <script src="js/html5shiv.min.js"></script>
+        <script src="js/respond.min.js"></script>
+	<![endif] -->
+
+    <!-- BOOTSTRAP STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- FONTAWESOME STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/fontawesome/css/font-awesome.min.css' %}">
+
+
+    <!-- OWL CAROUSEL STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/owl.carousel.min.css' %}">
+    <!-- BOOTSTRAP SLECT BOX STYLE SHEET  -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css\bootstrap-select.min.css' %}">
+    <!-- BOOTSTRAP SLIDER STYLE SHEET  -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css\bootstrap-slider.min.css' %}">
+
+    <!-- BOOTSTRAP DATETIMEPICKER STYLE SHEET  -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css\bootstrap-datetimepicker.css' %}">
+
+    <!-- MAGNIFIC POPUP STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css\magnific-popup.min.css' %}">
+    <!-- LOADER STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css\loader.min.css' %}">
+    <!-- MAIN STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css\style.css' %}">
+    <!-- FLATICON STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css\flaticon.min.css' %}">
+
+    <!-- CLUSTER CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css\cluster-css.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css\dropzone.css' %}">
+
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,500i,600,600i,700,800,800i,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+
+
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  
+
+</head>
+
+<body>
+
+    <div class="page-wraper">
+
+        <!-- HEADER START -->
+        <header class="site-header header-style-1 header-fixed nav-wide mobile-sider-drawer-menu">
+
+            <div class="main-bar-wraper is-fixed">
+                <div class="main-bar bg-white p-t10">
+                    <div class="container">
+                        <div class="logo-header">
+
+                            <div class="logo-header-inner logo-header-one">
+                                <a href="{% url 'home' %}">
+                                    <img src="{% static 'images\logo-dark.png' %}" alt="">
+                                </a>
+                            </div>
+                        </div>
+						<!-- NAV Toggle Button -->
+						 
+								
+                        <button id="mobile-side-drawer" type="button" class="navbar-toggle">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar icon-bar-first"></span>
+                            <span class="icon-bar icon-bar-two"></span>
+                            <span class="icon-bar icon-bar-three"></span>
+                        </button>
+
+
+                        
+
+
+                        <!-- MAIN Vav -->
+						
+                        <div class="header-nav nav-animation">
+
+                            <ul class=" nav navbar-nav">
+                                <!--<li><a href="index.html">Home</a></li> -->
+								 
+                                <li class="nav-item">
+							{% if user.is_authenticated %}
+									<a class="nav-link" href="{% url 'add' %}">  Add artist </a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="javascript:{document.getElementById('logout').submit()}">Logout</a>
+								</li>
+								<form id="logout" class="" action="{% url 'logout' %}" method="post">
+                                    {% csrf_token %}
+									
+									<input type='hidden'>
+								</form>
+                            {% else %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                                 </li>
+								 <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'signup' %}">Signup</a>
+                                 </li>
+								 
+							
+							{% endif %}
+							
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+        <!-- HEADER END -->
+		<div class="container">
+			{% if error %}
+			<div class="alert alert-warning">
+				<i class="fas fa-exclamation-triangle"></i>
+							{{error}}
+			</div>
+			{% endif %}
+		</div>
+
+        <!-- CONTENT START -->
+        <div class="page-content">
+
+            <!-- Banner -->
+            <div class="banner-wrap" style="background-image:url({% static 'images/background/bg-main.jpg' %})">
+
+                <div class="banner-image">
+                    <div class="banner-content-area">
+                        <div class="container">
+                            <form>
+                                <div class="banner-textrow">
+                                    
+                                    <span><p style="font-family: cursive;">Desired Look.... at your fingertip</p></span>
+                                </div>
+
+                                <div class="search-bar-warp">
+                                    <ul class="clearfix">
+                                        <li>
+                                            <div class="s-input-group round-input">
+                                                <i class="s-input-icon sl-icon-eye "></i>
+                                                <input type="text" class="form-control" placeholder="What are you looking For" name='title'>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="s-input-group">
+                                                <i class="s-input-icon sl-icon-layers "></i>
+                                                <select class="wt-select-box">
+                                                    <option>All Categories</option>
+                                                    <option value="Hair">Hair</option>
+                                                    <option value="Nail">Nail</option>
+                                                    <option value="Makeup">Makeup</option>
+                                                    <option value="Tattoo">Tattoo</option>
+                                                    <option value="Mehendi">Mehendi</option>
+                                                </select>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="s-input-group remove-border-right">
+                                                <i class="s-input-icon sl-icon-location "></i>
+                                                <select class="wt-select-box">
+                                                    <option>Mumbai</option>
+                                                   <!--  <option value="A4_4 Door Sedan">India</option>
+                                                    <option value="A5_2 Door Convertible">Japan</option> -->
+                                                </select>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <button class="site-button window-search-btn font-weight-600" type="submit" ><i class="sl-icon-magnifier m-r10"></i>Search</button>
+                                        </li>
+
+                                    </ul>
+                                </div>
+
+
+                            </form>
+
+                            
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="banner-image-overlay" style="opacity:0.5;"></div>
+                <div class="multi-line-animation">
+                    <div class="multi-line-one">
+                        <div class="animation-block1 bounce-1"></div>
+                    </div>
+                    <div class="multi-line-two">
+                        <div class="animation-block2 bounce-2"></div>
+                    </div>
+                    <div class="multi-line-three">
+                        <div class="animation-block1 bounce-1"></div>
+                    </div>
+                    <div class="multi-line-four">
+                        <div class="animation-block2 bounce-2"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Banner END -->
+
+            <!-- FEATURED SECTION START -->
+            <div class="section-full  p-t80 p-b80 bg-gray">
+                <div class="container">
+                    <!-- TITLE START-->
+                    <div class="section-head text-center">
+                        <h3 data-title="Featured Categories" style="font-family: cursive;" >Artists</h3>
+
+                        <div class="wt-separator bg-primary"></div>
+                        <div class="wt-separator2 bg-primary"></div>
+                        <!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the when an unknown printer took.</p> -->
+                    </div>
+
+                    <!-- TITLE END-->
+                    <div class="section-content" style = "position:relative;  top:70px;">
+                        <div class="masonry-wrap row clearfix"> {% if s_results %}
+        <div class="bg-white border rounded mb-5">
+          <h5 class="px-4 pt-4 pb-2 font-weight-normal">Search Results for '{{request.GET.title}}'</h5>
+          <hr class="mx-3 my-1">
+
+          {% for product in s_results %}
+          <div onclick="window.location='{% url 'info' product.slug %}';" class="col-lg-6 col-md-6">
+            <div class="col-md-auto">
+              <img class="listing-cat-box bg-cover bg-no-repeat m-b30" src="{{product.icon.url}}" width="400px" height="80" alt="">
+            </div>
+            <div class="col-sm-auto">
+              <div class="">
+                <h5 class="listing-place-name"><a href="{% url 'info' product.slug %}">{{p.title}}</a></h5>
+                <small class="text-muted d-block">{{product.address}}</small>
+              </div>
+            </div>
+            <div class="col-sm-auto flex-grow-1">{% is_voted product user as pvoted %}
+              <a href="{% url 'upvote' product.slug %}?next={{request.build_absolute_uri}}" class="btn btn-sm btn-default {% if not pvoted %}btn-success{% else %}btn-danger{% endif %} float-right">
+                {% if not pvoted %}<i class="fas fa-caret-up fa-fw"></i>{% else %}<i class="fas fa-caret-down fa-fw"></i>{% endif %}
+                <small class="text-dark font-weight-bold text-white">{{product|get_votes}}</small>
+              </a>
+            </div>
+          </div>
+          <hr class="my-1">
+          {% endfor %}
+        </div>
+        {% endif %}{% for p in product%}
+                            <div class="col-lg-6 col-md-6"> 
+                                <div class="listing-cat-box bg-cover bg-no-repeat m-b30" style="background-image:url({{p.icon.url}})">
+                                    <span class="listing-category-name bg-primary"><a href='{% url "info" p.slug %}'>{{ p.category }}</a></span>                                
+                                    <div class="listing-cat-text">
+                                        <h4 class="listing-place-name"><a href="{% url 'info' p.slug %}">{{p.title}}</a></h4>
+                                        <div class="clearfix">
+                                                <div class="wt-rating-section float-left">
+                                                    <span class="wt-rating">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                    </span>
+                                                    <span class="wt-rating-conting">({{p|get_votes}} Upvotes)</span>
+                                                 <span class="wt-rating-conting">  
+                                                    
+                                                </span>
+                                                </div>
+                                                <div class="wt-listing-view-section"> 
+                                                    <ul>
+                                                        <div class="col-sm-auto flex-grow-1">{% is_voted p user as pvoted %}
+                                                        <a href="{% url 'upvote' p.slug %}?next={{request.build_absolute_uri}}" class="btn btn-sm btn-default {% if not pvoted %}btn-success{% else %}btn-danger{% endif %} float-right">
+                                                        {% if not pvoted %}<i class="fas fa-caret-up fa-fw"></i>{% else %}<i class="fas fa-caret-down fa-fw"></i>{% endif %}
+                                                            <small class="text-dark font-weight-bold text-white">{{p|get_votes}}</small>
+                                                        </a>
+                                                    </div>                                                           
+                                                            </li>
+                                                        <!-- <li class="bg-primary">
+                                                            <a href="javascript:;" class="listing-cat-preview" data-toggle="modal" data-target=".preview-place">
+                                                                <i class="fa fa-eye"></i>
+                                                                <span class="preview-tooltip">Preview</span>
+                                                            </a>
+                                                        </li> -->
+                                                    </ul>
+                                                </div>
+                                            </div> 
+                                        <span class="listing-cat-address"><i class="sl-icon-location"></i>{{p.address}}</span> 
+                                    </div>
+                                    <div class="listing-cat-overlay"></div>
+                                </div>                          
+                            </div>{% endfor %}
+                           <!--  <div class="col-lg-6 col-md-6">
+                                <div class="listing-cat-box bg-cover bg-no-repeat m-b30" style="background-image:url(images/visited-palce/pic2.jpg)">
+
+                                    <span class="listing-category-name bg-primary"><a href='#'>{{ p.title }}</a></span>                                
+                                    <div class="listing-cat-text">
+                                        <h4 class="listing-place-name"><a href="#">Luxury Restourant</a></h4>
+                                        <div class="clearfix">
+                                                <div class="wt-rating-section float-left">
+                                                    <span class="wt-rating">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                    </span>
+                                                    <span class="wt-rating-conting">(20 reviews)</span>
+                                                </div>
+                                                <div class="wt-listing-view-section"> 
+                                                    <ul>
+                                                        <li class="bg-primary">
+                                                                <a href="javascript:;" class="listing-cat-preview">
+                                                                    <i class="fa fa-heart-o fill-add-to-fav"></i>
+                                                                    <span class="preview-tooltip">Add to Favorite</span>
+                                                                </a>                                                            
+                                                            </li>
+                                                        <li class="bg-primary">
+                                                            <a href="javascript:;" class="listing-cat-preview" data-toggle="modal" data-target=".preview-place">
+                                                                <i class="fa fa-eye"></i>
+                                                                <span class="preview-tooltip">Preview</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div> 
+                                        <span class="listing-cat-address"><i class="sl-icon-location"></i>NW18JR, United Kingdom</span> 
+                                    </div>
+                                    <div class="listing-cat-overlay"></div>
+                                </div>                              
+                            </div> -->
+                            <!-- <div class="col-lg-6 col-md-6">
+                                <div class="listing-cat-box bg-cover bg-no-repeat m-b30" style="background-image:url(images/visited-palce/pic3.jpg)">
+                                    <span class="listing-category-name bg-primary"><a href="#">Restourant</a></span>                                
+                                    <div class="listing-cat-text">
+                                        <h4 class="listing-place-name"><a href="#">Luxury Restourant</a></h4>
+                                        <div class="clearfix">
+                                                <div class="wt-rating-section float-left">
+                                                    <span class="wt-rating">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                    </span>
+                                                    <span class="wt-rating-conting">(20 reviews)</span>
+                                                </div>
+                                                <div class="wt-listing-view-section"> 
+                                                    <ul>
+                                                        <li class="bg-primary">
+                                                                <a href="javascript:;" class="listing-cat-preview">
+                                                                    <i class="fa fa-heart-o fill-add-to-fav"></i>
+                                                                    <span class="preview-tooltip">Add to Favorite</span>
+                                                                </a>                                                            
+                                                            </li>
+                                                        <li class="bg-primary">
+                                                            <a href="javascript:;" class="listing-cat-preview" data-toggle="modal" data-target=".preview-place">
+                                                                <i class="fa fa-eye"></i>
+                                                                <span class="preview-tooltip">Preview</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div> 
+                                        <span class="listing-cat-address"><i class="sl-icon-location"></i>NW18JR, United Kingdom</span> 
+                                    </div>
+                                    <div class="listing-cat-overlay"></div>
+                                </div>                            
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="listing-cat-box bg-cover bg-no-repeat m-b30" style="background-image:url(images/visited-palce/pic4.jpg)">
+                                    <span class="listing-category-name bg-primary"><a href="#">Restourant</a></span>                                
+                                    <div class="listing-cat-text">
+                                        <h4 class="listing-place-name"><a href="#">Luxury Restourant</a></h4>
+                                        <div class="clearfix">
+                                                <div class="wt-rating-section float-left">
+                                                    <span class="wt-rating">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                    </span>
+                                                    <span class="wt-rating-conting">(20 reviews)</span>
+                                                </div>
+                                                <div class="wt-listing-view-section"> 
+                                                    <ul>
+                                                        <li class="bg-primary">
+                                                                <a href="javascript:;" class="listing-cat-preview">
+                                                                    <i class="fa fa-heart-o fill-add-to-fav"></i>
+                                                                    <span class="preview-tooltip">Add to Favorite</span>
+                                                                </a>                                                            
+                                                            </li>
+                                                        <li class="bg-primary">
+                                                            <a href="javascript:;" class="listing-cat-preview" data-toggle="modal" data-target=".preview-place">
+                                                                <i class="fa fa-eye"></i>
+                                                                <span class="preview-tooltip">Preview</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div> 
+                                        <span class="listing-cat-address"><i class="sl-icon-location"></i>NW18JR, United Kingdom</span> 
+                                    </div>
+                                    <div class="listing-cat-overlay"></div>
+                                </div>                            
+                            </div> 
+                            <div class="col-lg-6 col-md-6">
+                                <div class="listing-cat-box bg-cover bg-no-repeat m-b30" style="background-image:url(images/visited-palce/pic5.jpg)">
+                                    <span class="listing-category-name bg-primary"><a href="#">Restourant</a></span>                                
+                                    <div class="listing-cat-text">
+                                        <h4 class="listing-place-name"><a href="#">Luxury Restourant</a></h4>
+                                        <div class="clearfix">
+                                                <div class="wt-rating-section float-left">
+                                                    <span class="wt-rating">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                    </span>
+                                                    <span class="wt-rating-conting">(20 reviews)</span>
+                                                </div>
+                                                <div class="wt-listing-view-section"> 
+                                                    <ul>
+                                                        <li class="bg-primary">
+                                                                <a href="javascript:;" class="listing-cat-preview">
+                                                                    <i class="fa fa-heart-o fill-add-to-fav"></i>
+                                                                    <span class="preview-tooltip">Add to Favorite</span>
+                                                                </a>                                                            
+                                                            </li>
+                                                        <li class="bg-primary">
+                                                            <a href="javascript:;" class="listing-cat-preview" data-toggle="modal" data-target=".preview-place">
+                                                                <i class="fa fa-eye"></i>
+                                                                <span class="preview-tooltip">Preview</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div> 
+                                        <span class="listing-cat-address"><i class="sl-icon-location"></i>NW18JR, United Kingdom</span> 
+                                    </div>
+                                    <div class="listing-cat-overlay"></div>
+                                </div>                            
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="listing-cat-box bg-cover bg-no-repeat m-b30" style="background-image:url(images/visited-palce/pic6.jpg)">
+                                    <span class="listing-category-name bg-primary"><a href="#">Restourant</a></span>                                
+                                    <div class="listing-cat-text">
+                                        <h4 class="listing-place-name"><a href="#">Luxury Restourant</a></h4>
+                                        <div class="clearfix">
+                                                <div class="wt-rating-section float-left">
+                                                    <span class="wt-rating">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                    </span>
+                                                    <span class="wt-rating-conting">(20 reviews)</span>
+                                                </div>
+                                                <div class="wt-listing-view-section"> 
+                                                    <ul>
+                                                        <li class="bg-primary">
+                                                                <a href="javascript:;" class="listing-cat-preview">
+                                                                    <i class="fa fa-heart-o fill-add-to-fav"></i>
+                                                                    <span class="preview-tooltip">Add to Favorite</span>
+                                                                </a>                                                            
+                                                            </li>
+                                                        <li class="bg-primary">
+                                                            <a href="javascript:;" class="listing-cat-preview" data-toggle="modal" data-target=".preview-place">
+                                                                <i class="fa fa-eye"></i>
+                                                                <span class="preview-tooltip">Preview</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div> 
+                                        <span class="listing-cat-address"><i class="sl-icon-location"></i>NW18JR, United Kingdom</span> 
+                                    </div>
+                                    <div class="listing-cat-overlay"></div>
+                                </div>                            
+                            </div>-->
+                            
+                        </div> 
+                    </div>
+                    <!-- <div class="text-center m-t10">
+                        <a href="#" class="site-button site-btn-effect" data-hover="Read More">View All</a>
+                    </div> -->
+                </div>
+            </div>
+            <!-- FEATURED SECTION START -->
+
+	
+
+
+    <!-- LOADING AREA START ===== -->
+    <div class="loading-area">
+        <div class="loading-box"></div>
+        <div class="loading-pic">
+            <div class='load-pin load-bounce'></div>
+            <div class='load-pulse'></div>
+            <div class="cssload-container">
+                <div class="cssload-loading"><i></i><i></i><i></i><i></i></div>
+            </div>
+        </div>
+    </div>
+    <!-- LOADING AREA  END ====== -->
+
+    <!-- JAVASCRIPT  FILES ========================================= -->
+    <script src="{% static 'js\jquery-2.2.0.min.js' %}"></script>
+    <!-- JQUERY.MIN JS -->
+    <script src="'{% static 'js\moment.min.js' %}"></script>
+    <!-- FOR datetimepicker -->
+    <script src="{% static 'js\bootstrap.min.js' %}"></script>
+    <!-- BOOTSTRAP.MIN JS -->
+    <script src="{% static 'js\bootstrap-select.min.js' %}"></script>
+    <!-- Form js -->
+    <script src="{% static 'js\bootstrap-slider.min.js' %}"></script>
+    <!-- Form js -->
+    <script src="{% static 'js\bootstrap-datetimepicker.js' %}"></script>
+    <!-- Form js -->
+    <script src="{% static 'js\jquery.bootstrap-touchspin.min.js' %}"></script>
+    <!-- FORM JS -->
+
+    <script src="{% static 'js\magnific-popup.min.js' %}"></script>
+    <!-- MAGNIFIC-POPUP JS -->
+    <script src="{% static 'js\waypoints.min.js' %}"></script>
+    <!-- WAYPOINTS JS -->
+    <script src="{% static 'js\counterup.min.js' %}"></script>
+    <!-- COUNTERUP JS -->
+    <script src="{% static 'js\waypoints-sticky.min.js' %}"></script>
+    <!-- COUNTERUP JS -->
+
+    <script src="{% static 'js\isotope.pkgd.min.js' %}"></script>
+    <!-- MASONRY  -->
+
+    <script src="{% static 'js\owl.carousel.min.js' %}"></script>
+    <!-- OWL  SLIDER  -->
+    <script src="{% static 'js\jquery.owl-filter.js' %}"></script>
+
+    <script src="{% static 'js\stellar.min.js' %}"></script>
+    <!-- PARALLAX BG IMAGE   -->
+    <script src="{% static 'js\jquery.bgscroll.js' %}"></script>
+    <!-- BACKGROUND SCROLL -->
+
+    <script src="{% static 'js\dropzone.js' %}"></script>
+    <!-- IMAGE UPLOAD  -->
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_8C7p0Ws2gUu7wo0b6pK9Qu7LuzX2iWY&libraries=places&callback=initAutocomplete"></script>
+    <script src="{% static 'js\infobox.min.js' %}"></script>
+    <!-- MAP CLUSTER  -->
+    <script src="{% static 'js\markerclusterer.js' %}"></script>
+    <!-- MAP CLUSTER  -->
+    <script src="{% static 'js\maps.js' %}"></script>
+    <!-- MAP CLUSTER  -->
+    <script src="{% static 'js\map-cluster-rating.js' %}"></script>
+    <!-- MAP CLUSTER  -->
+
+    <script src="{% static 'js\m-custom-scrollbar.min.js' %}"></script>
+    <!-- my account left panel scroller -->
+
+    <!-- Timing Countdown -->
+    <script src="{% static 'js\kinetic.js' %}"></script>
+    <script src="{% static 'js\jquery.final-countdown.js' %}"></script>
+
+    <script src="{% static 'js\custom.js' %}"></script>
+    <!-- CUSTOM FUCTIONS  -->
+    
+
+
+</body>
+
+</html>

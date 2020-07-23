@@ -1,0 +1,1035 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+{% load common %}
+<head>
+
+	<!-- META -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="robots" content="">    
+    <meta name="description" content="">
+
+
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    
+    <!-- FAVICONS ICON -->
+    <link rel="icon" href="images\favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'images\favicon.png' %}">
+    
+    <!-- PAGE TITLE HERE -->
+    <title>{{product.title}}</title>
+    
+    <!-- MOBILE SPECIFIC -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- [if lt IE 9]>
+        <script src="js/html5shiv.min.js"></script>
+        <script src="js/respond.min.js"></script>
+	<![endif] -->
+    
+    <!-- BOOTSTRAP STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css\bootstrap.min.css' %}">
+    <!-- FONTAWESOME STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css\fontawesome\css\font-awesome.min.css' %}">
+
+
+    <!-- OWL CAROUSEL STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css\owl.carousel.min.css' %}">
+    <!-- BOOTSTRAP SLECT BOX STYLE SHEET  -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css\bootstrap-select.min.css' %}">
+    <!-- BOOTSTRAP SLIDER STYLE SHEET  -->  
+    <link rel="stylesheet" type="text/css" href="{% static 'css\bootstrap-slider.min.css' %}"> 
+    
+    <!-- BOOTSTRAP DATETIMEPICKER STYLE SHEET  -->  
+    <link rel="stylesheet" type="text/css" href="{% static 'css\bootstrap-datetimepicker.css' %}">      
+
+    <!-- MAGNIFIC POPUP STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css\magnific-popup.min.css' %}">
+    <!-- LOADER STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css\loader.min.css' %}">    
+    <!-- MAIN STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css\style.css' %}">
+        <!-- FLATICON STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css\flaticon.min.css' %}"> 
+    
+    <!-- CLUSTER CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css\cluster-css.css' %}">
+   <link rel="stylesheet" href="{% static 'css\dropzone.css' %}">           
+  
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,500i,600,600i,700,800,800i,900" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">  
+
+</head>
+
+<body id="bg">
+
+	<div class="page-wraper"> 
+       	
+        <!-- HEADER START -->
+        <header class="site-header header-style-1 header-fixed nav-wide mobile-sider-drawer-menu">
+
+            <div class="main-bar-wraper is-fixed">
+                <div class="main-bar bg-white p-t10">
+                    <div class="container">
+                        <div class="logo-header">
+                            <div class="logo-header-inner logo-header-one">
+                                <a href="{% url 'home' %}">
+                                    <img src="{% static 'images\logo-dark.png' %}" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <!-- NAV Toggle Button -->
+                         
+                                
+                        <button id="mobile-side-drawer" type="button" class="navbar-toggle">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar icon-bar-first"></span>
+                            <span class="icon-bar icon-bar-two"></span>
+                            <span class="icon-bar icon-bar-three"></span>
+                        </button>
+
+
+                        
+
+
+                        <!-- MAIN Vav -->
+                        
+                        <div class="header-nav nav-animation">
+
+                            <ul class=" nav navbar-nav">
+                                <!--<li><a href="index.html">Home</a></li> -->
+                                 
+                                <li class="nav-item">
+                            {% if user.is_authenticated %}
+                                  <!--   <a class="nav-link" href="{% url 'add' %}">  Add artist </a>
+                                </li>
+                                <li class="nav-item"> -->
+                                    <a class="nav-link" href="javascript:{document.getElementById('logout').submit()}">Logout</a>
+                                </li>
+                                <form id="logout" class="" action="{% url 'logout' %}" method="post">
+                                    {% csrf_token %}
+                                    
+                                    <input type='hidden'>
+                                </form>
+                            {% else %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                                 </li>
+                                 <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'signup' %}">Signup</a>
+                                 </li>
+                                 
+                            
+                            {% endif %}
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+
+        <!-- HEADER END -->
+        
+        <!-- CONTENT START -->
+        <div class="page-content bg-gray">
+                <div class="wt-list-banner-inr-wrap">
+                    <div class="wt-list-banner-inr-pic" style="background-image:url({{ product.back_image.url }})">
+                        <div class="wt-list-banner-inr-overlay" style="opacity:0.1;"></div>
+                    </div>
+                </div>           
+			<!-- SECTION CONTENT START -->
+            <div class="section-full p-t80 p-b50">
+                <div class="container">	
+                
+                      <div class="row">
+                      		<div class="col-md-8">
+                            <!-- provider info -->
+                                <div class="wt-list-panel  bg-white p-a30 m-b30">
+                                    <div class="wt-list-single-info-box-left">	
+                                    <div class="wt-list-single-info-box"> 
+                                        <h3 class="wt-list-single-title">{{product.title}} </h3>
+
+
+                                        <span class="hosted-by">Owner -<strong>{{product.owner}}</strong></span>
+                                        <div class="wt-list-single-ratings">
+                                            <div class="star-rating-input text-yellow">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star-half"></i>
+                                                <i class="fa fa-star-o"></i>
+                                            </div>
+                                            <span class="star-rating-counts">3.5</span>
+                                            <label>({{product|get_votes}} Upvotes)</label>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                    <div class="wt-list-single-location-info">
+                                        <ul class="list-unstyled m-b0">
+                                            <li><span><i class="fa fa-map-marker"></i>Address:</span><p>{{product.address}}</p></li>
+                                            <li><span><i class="fa fa-phone"></i>Phone:</span><p>{{product.number}}  </p></li>
+                                            <!-- <li><span><i class="fa fa-envelope"></i>Mail:</span><p>info@dummy123.com  </p></li> -->
+                                            <!-- <li><span><i class="fa fa-globe"></i>Website:</span><p>pixelwebart.com  </p></li> -->
+                                        </ul>
+                                        <div class="wt-list-single-location-info-social p-t20">
+                                            <ul class="list-unstyled social-icons social-md  m-b0">
+                                                <li><a href="{{product.facebook}}" class="fa fa-facebook" target="blank"></a></li>
+                                                <li><a href="{{product.instagram}}" class="fa fa-instagram" target="blank"></a></li>
+                                                <!-- <li><a href="javascript:void(0);" class="fa fa-google"></a></li> -->
+                                                <li><a href="{{product.twitter}};" class="fa fa-twitter" target="blank"></a></li>                                                
+                                            </ul>
+                                        </div>
+                                    </div>                                
+                                </div>
+                                </div>
+                            <!--provider info End -->
+                            
+                            <!-- About Detail-->
+                                <div class="wt-list-panel bg-white p-a30 m-b30">
+                                    <div class="wt-list-single-about-detail">
+                                        <h4 class="wt-list-panel-title m-t0">About {{product.title}}</h4>
+                                        <p>{{product.desc}}</p>
+                                      
+                                        <!-- <div class="text-right">
+                                            <a class="site-button button-sm" href="#">Download Broshure <i class="fa fa-file-pdf-o"></i></a>
+                                        </div> -->
+                                    </div>
+                                </div>
+                             <!-- About Detail End-->
+                             
+                            <!-- Amenities -->
+                                <!-- <div class="wt-list-panel bg-white p-a30 m-b30">
+                                    <div class="wt-list-single-amenities">
+                                        <h4 class="wt-list-panel-title m-t0">Amenities and Features</h4>
+                                            <ul class="wt-single-amenities-list clearfix  equal-wraper">
+                                                <li class="equal-col">
+                                                	<div class="amen-outer"><div class="ameni-icon"> <span class="features-icon"><i class="fa fa-child"></i></span></div> <strong> Good for kids</strong></div>
+                                                </li>
+                                                <li class="equal-col">
+                                                	<div class="amen-outer"><div class="ameni-icon"> <span class="features-icon"><i class="fa fa-building"></i></span></div> <strong>Elevator in building</strong></div>
+                                                </li>
+                                                <li class="equal-col">
+                                                	<div class="amen-outer"><div class="ameni-icon"> <span class="features-icon"><i class="fa fa-bicycle"></i></span></div> <strong>Bike Parking</strong></div>
+                                                </li>
+                                                <li class="equal-col">
+                                                	<div class="amen-outer"><div class="ameni-icon"> <span class="features-icon"><i class="fa fa-glass"></i></span></div> <strong>Alcohol</strong></div>
+                                                </li>
+                                                <li class="equal-col">
+                                                	<div class="amen-outer"><div class="ameni-icon"> <span class="features-icon"><i class="fa fa fa-cutlery"></i></span></div> <strong>Reservations</strong></div>
+                                                </li>
+                                                <li class="equal-col">
+                                                	<div class="amen-outer"><div class="ameni-icon"> <span class="features-icon"><i class="fa fa-coffee"></i></span></div> <strong>Free coffee and tea</strong></div>
+                                                </li> 
+                                                <li class="equal-col">
+                                                	<div class="amen-outer"><div class="ameni-icon"> <span class="features-icon"><i class="fa fa-credit-card"></i></span></div> <strong>Accepts Credit Cards</strong></div>
+                                                </li>
+                                                <li class="equal-col">
+                                                	<div class="amen-outer"><div class="ameni-icon"> <span class="features-icon"><i class="fa fa-bookmark-o"></i></span></div> <strong>Accepts Credit Cards</strong></div>
+                                                </li>  
+                                            </ul>                                	
+                                    </div>
+                                </div> -->
+                             <!-- Amenities End-->
+                             
+                            <!-- Listing Tags -->
+                                <!-- <div class="wt-list-panel bg-white m-b30">
+                                    <div class="wt-list-single-video">
+                                         <iframe width="560" height="315" src="https://www.youtube.com/embed/dcN_mnWp9w8" allowfullscreen=""></iframe>                                	
+                                    </div>
+                                </div> -->
+                             <!-- Listing tags End--> 
+                             
+                             
+                            <!-- Location -->
+                                <!-- <div class="wt-list-panel bg-white m-b30">
+                                    <div class="wt-list-single-map">
+                                        <div id="singleListingMap-container">
+                                            <div id="singleListingMap" data-latitude="40.70437865245596" data-longitude="-73.98674011230469" data-map-icon="im im-icon-Hamburger"></div>
+                                            
+                                        </div>
+                                   </div>
+                                </div>  -->  
+                            <!-- Location End--> 
+                               
+                         
+                            <!-- Tags -->
+                               <!--  <div class="wt-list-panel bg-white p-a30 m-b30">
+                                    <div class="wt-list-single-tags">
+                                        <h4 class="wt-list-panel-title m-t0">Tags</h4>
+                                                
+                                            <div class="tagcloud">
+                                                <a href="javascript:void(0);">Event </a>
+                                                <a href="javascript:void(0);">Cocktails</a>
+                                                <a href="javascript:void(0);">Photography</a>
+                                                <a href="javascript:void(0);">Friendly</a>
+                                                <a href="javascript:void(0);">service</a>
+                                                <a href="javascript:void(0);">Lunch</a>
+                                                <a href="javascript:void(0);">Sandwich</a>
+                                                <a href="javascript:void(0);">lifestyle </a>
+                                                <a href="javascript:void(0);">food</a>
+                                                <a href="javascript:void(0);">Wine</a>
+                                            </div>                             	
+                                        
+                                    </div>
+                                </div> -->
+                             <!-- Tags End--> 
+                             
+                            <!-- Some Facts -->
+                                <!-- <div class="wt-list-panel bg-white p-a30 p-b0 m-b30">
+                                    <div class="wt-list-single-somefacts-three ">
+                                        
+                                                
+                                        <div class="row">
+                                        
+                                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                                <div class="wt-icon-box-wraper center text-primary m-b30">
+                                                    <span class="icon-md m-b20">
+                                                        <i class="sl-icon-people"></i>
+                                                    </span>
+                                                    <div class="icon-content">
+                                                        <h2 class="counter m-b5 m-t0">3500</h2>
+                                                        <h6 class="m-b0">Happy Customers</h6>
+                                                    </div>
+                                                </div>                            
+                                            </div>
+                                            
+                                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                                <div class="wt-icon-box-wraper center text-primary m-b30">
+                                                    <span class="icon-md m-b20">
+                                                        <i class="sl-icon-trophy"></i>
+                                                    </span>
+                                                    <div class="icon-content">
+                                                        <h2 class="counter m-b5 m-t0">455</h2>
+                                                        <h6 class="m-b0">Restorans Awards</h6>
+                                                    </div>
+                                                </div>                            
+                                            </div> 
+                                            
+                                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                                <div class="wt-icon-box-wraper center text-primary m-b30">
+                                                    <span class="icon-md m-b20">
+                                                        <i class="sl-icon-user-following"></i>
+                                                    </span>
+                                                    <div class="icon-content">
+                                                        <h2 class="counter m-b5 m-t0">210</h2>
+                                                        <h6 class="m-b0">Visiters Every Week</h6>
+                                                    </div>
+                                                </div>                            
+                                            </div>
+                                            
+                                        </div>                            	
+                                        
+                                    </div>
+                                </div> -->
+                             <!-- Some Facts End--> 
+                             
+                             <!--Our services-->
+                            	<div class="wt-list-panel  bg-white p-a30 p-b80 m-b30">
+                                	<h4 class="wt-list-panel-title m-t0">Gallery Photos</h4>
+                                    <div class="list-single-gallery-slider1 mfp-gallery owl-carousel owl-btn-bottom-center">
+                                        <div class="item">
+                                            <div class="list-single-gallery-slide-wrap">
+                                                <div class="list-single-gallery-slide-thum" style="background-image:url({{product.imageone.url}})"></div>
+                                                <div class="list-single-gallery-slide-overlay"></div>
+                                                <!-- <a href="{% static 'images\list-single\restaurant\pic1.jpg' %}" class="mfp-link mfp-gallery">
+                                                    <i class="fa fa-picture-o"></i>
+                                                </a> -->
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="list-single-gallery-slide-wrap">
+                                                <div class="list-single-gallery-slide-thum" style="background-image:url({{product.imagetwo.url}})"></div>
+                                                <div class="list-single-gallery-slide-overlay"></div>
+                                                <!-- <a href="images\list-single\restaurant\pic1.jpg" class="mfp-link mfp-gallery">
+                                                    <i class="fa fa-picture-o"></i>
+                                                </a> -->
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="list-single-gallery-slide-wrap">
+                                                <div class="list-single-gallery-slide-thum" style="background-image:url({{product.imagethree.url}})"></div>
+                                                <div class="list-single-gallery-slide-overlay"></div>
+                                                <!-- <a href="images\list-single\restaurant\pic1.jpg" class="mfp-link mfp-gallery">
+                                                    <i class="fa fa-picture-o"></i>
+                                                </a> -->
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="list-single-gallery-slide-wrap">
+                                                <div class="list-single-gallery-slide-thum" style="background-image:url({{product.imagefour.url}})"></div>
+                                                <div class="list-single-gallery-slide-overlay"></div>
+                                                <!-- <a href="images\list-single\restaurant\pic1.jpg" class="mfp-link mfp-gallery">
+                                                    <i class="fa fa-picture-o"></i>
+                                                </a> -->
+                                            </div>
+                                        </div>                                                                                                                        
+                                                                                                                  
+                                    </div>
+                                </div>
+                            <!--Our services-->   
+                            
+                             <!--Review-->
+                            	<!-- <div class="wt-list-panel  bg-white p-a30 m-b30">
+                                	<h4 class="wt-list-panel-title m-t0">Items Reviewed</h4>
+                                    <div class="review-overview clearfix">
+                                        <div class="review-rate-box">
+                                            <span class="rating-rate-box-total">3.5</span>
+                                            <span class="rating-rate-box-percent">out of 5.0</span>
+                                            <div class="star-Rating-input">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star-half"></i>
+                                                <i class="fa fa-star-o"></i>
+                                            </div>                                                
+                                        </div>
+                                        <div class="rating-bars">
+                                            <div class="rate-bar-category">
+                                                <span class="rate-bars-name">Service<strong class="rate-count">4.5</strong></span>
+                                                <div class="rate-bars-line">
+                                                    <div class="progress wt-probar-2 radius-md m-b0">
+                                                        <div class="progress-bar bg-primary radius-md" role="progressbar" aria-valuenow="85" aria-valuemin="10" aria-valuemax="100" style="width: 85%;">
+                                                            <span class="popOver" data-toggle="tooltips" data-placement="top" title="100%"></span>
+                                                        </div>
+                                                   </div> 
+                                                </div> 
+                                            </div>
+                                            <div class="rate-bar-category">
+                                                <span class="rate-bars-name">Value for Money<strong class="rate-count">4.1</strong></span>
+                                                <div class="rate-bars-line">
+                                                    <div class="progress wt-probar-2 radius-md m-b0">
+                                                        <div class="progress-bar bg-primary radius-md" role="progressbar" aria-valuenow="70" aria-valuemin="10" aria-valuemax="100" style="width: 70%;">
+                                                            <span class="popOver" data-toggle="tooltips" data-placement="top" title="100%"></span>
+                                                        </div>
+                                                   </div> 
+                                                </div> 
+                                            </div>
+                                            <div class="rate-bar-category">
+                                                <span class="rate-bars-name">Location<strong class="rate-count">4.8</strong></span>
+                                                <div class="rate-bars-line">
+                                                    <div class="progress wt-probar-2 radius-md m-b0">
+                                                        <div class="progress-bar bg-primary radius-md" role="progressbar" aria-valuenow="90" aria-valuemin="10" aria-valuemax="100" style="width: 90%;">
+                                                            <span class="popOver" data-toggle="tooltips" data-placement="top" title="100%"></span>
+                                                        </div>
+                                                   </div> 
+                                                </div> 
+                                            </div>
+                                            <div class="rate-bar-category">
+                                                <span class="rate-bars-name">Cleanliness<strong class="rate-count">2.5</strong></span>
+                                                <div class="rate-bars-line">
+                                                    <div class="progress wt-probar-2 radius-md m-b0">
+                                                        <div class="progress-bar bg-primary radius-md" role="progressbar" aria-valuenow="35" aria-valuemin="10" aria-valuemax="100" style="width: 35%;">
+                                                            <span class="popOver" data-toggle="tooltips" data-placement="top" title="100%"></span>
+                                                        </div>
+                                                   </div> 
+                                                </div> 
+                                            </div>                                                                                                                                                
+                                            
+                                               
+                                        </div>
+                                    </div>                                    
+                                    <div class="wt-list-single-comment">
+                                        <ul class="wt-single-filter-list">
+                                            <li class="comment">
+                                                <div class="comment-body">
+                                                    <div class="comment-meta">
+                                                        <div class="comment-by m-b10"><i class="fa fa-user-o"></i> <span>John Doe</span> </div>
+                                                        <div class="comment-date m-b15"><i class="fa fa-calendar-o"></i> <span>June 15, 2019 at 9:48 am </span></div>
+                                                    </div>
+                                                    <div class="ratting">
+                                                        <div class="wt-reviews-star text-yellow">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                        </div>
+                                                    </div>                                                
+                                                    <div class="comment-author">
+                                                        <img class="avatar photo" src="images\testimonials\pic1.jpg" alt="">
+                                                    </div>
+                                                    <p>Est luctus eget. Proin in nunc laoreet justo volutpat blandit enim. Sem felis, laoreet justo volutpat blandit enim. Sem felis, ullamcorper vel aliquam non, ullamcorper vel aliquam non, varius eget justo. Duis quis nunc tellus sollicitudin mauris.</p>
+
+                                                </div>
+                                            </li>
+                                            <li class="comment">
+                                                <div class="comment-body">
+                                                    <div class="comment-meta">
+                                                        <div class="comment-by m-b10"><i class="fa fa-user-o"></i> <span>Ronan</span> </div>
+                                                        <div class="comment-date m-b15"><i class="fa fa-calendar-o"></i> <span>June 15, 2019 at 9:48 am </span></div>
+                                                    </div>
+                                                    <div class="ratting">
+                                                        <div class="wt-reviews-star text-yellow">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                        </div>
+                                                    </div>                                                
+                                                    <div class="comment-author">
+                                                        <img class="avatar photo" src="images\testimonials\pic2.jpg" alt="">
+                                                    </div>
+                                                    <p>blandit enim. Sem felis, ullamcorper vel aliquam non, ullamcorper vel aliquam non, varius eget justo. Duis quis nunc tellus sollicitudin mauris.</p>
+
+                                                </div>
+                                            </li>
+                                            <li class="comment">
+                                                <div class="comment-body">
+                                                    <div class="comment-meta">
+                                                        <div class="comment-by m-b10"><i class="fa fa-user-o"></i> <span>Shira</span> </div>
+                                                        <div class="comment-date m-b15"><i class="fa fa-calendar-o"></i> <span>June 15, 2019 at 9:48 am </span></div>
+                                                    </div>
+                                                    <div class="ratting">
+                                                        <div class="wt-reviews-star text-yellow">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                        </div>
+                                                    </div>                                                
+                                                    <div class="comment-author">
+                                                        <img class="avatar photo" src="images\testimonials\pic3.jpg" alt="">
+                                                    </div>
+                                                    <p>em felis, ullamcorper vel aliquam non, ullamcorper vel aliquam non, varius eget justo. Duis quis nunc tellus sollicitudin mauris.</p>
+
+                                                </div>
+                                            </li>
+                                            <li class="comment">
+                                                <div class="comment-body">
+                                                    <div class="comment-meta">
+                                                        <div class="comment-by m-b10"><i class="fa fa-user-o"></i> <span>Beatriz</span> </div>
+                                                        <div class="comment-date m-b15"><i class="fa fa-calendar-o"></i> <span>June 15, 2019 at 9:48 am </span></div>
+                                                    </div>
+                                                    <div class="ratting">
+                                                        <div class="wt-reviews-star text-yellow">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                        </div>
+                                                    </div>                                                
+                                                    <div class="comment-author">
+                                                        <img class="avatar photo" src="images\testimonials\pic4.jpg" alt="">
+                                                    </div>
+                                                    <p>Est luctus eget. Proin in nunc laoreet justo volutpat blandit enim. Sem felis, laoreet justo volutpat blandit enim. Sem felis, ullamcorper vel aliquam non, ullamcorper vel aliquam non, varius eget justo. Duis quis nunc tellus sollicitudin mauris.</p>
+
+                                                </div>
+                                            </li>                                                                                                                                    
+                                            
+                                            
+                                        </ul> 
+                                    </div>  --> 
+                                    
+                                    <!-- <div class="comment-reply-wrap">
+                                        <h4 class="comment-reply-title sf-pro-title" id="reply-title">Add Reviews & Rate </h4>  
+
+                                    <div class="add-review-overview clearfix">
+                                        
+                                        <div class="add-rating-bars">
+                                            <div class="add-rate-bar-category">
+                                            	<span class="add-rate-bars-name">Service</span>
+                                            	<div class="add-star-Rating-input">
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </div>                                                    
+                                            </div>
+                                            <div class="add-rate-bar-category">
+                                            	<span class="add-rate-bars-name">Value for Money</span>
+                                            	<div class="add-star-Rating-input">
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </div>   
+                                            </div>
+                                            <div class="add-rate-bar-category">
+                                            	<span class="add-rate-bars-name">Location</span>
+                                            	<div class="add-star-Rating-input">
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </div>   
+                                            </div>
+                                            <div class="add-rate-bar-category">
+                                            	<span class="add-rate-bars-name">Cleanliness</span>
+                                            	<div class="add-star-Rating-input">
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </div>   
+                                            </div>                                                                                                                                                
+                                            
+                                               
+                                        </div>
+                                    </div>  
+										<div class="m-b30">
+                                        	<form action="upload.php" class="dropzone"></form> 
+                                        </div>
+                                        
+                                        
+                                        <form class="comment-form" method="post">
+                                        
+                                            <div class="row">
+                                            	<div class="col-md-12">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group wt-input-icon">
+                                                            <div class="input-group">
+                                                                <i class="input-group-addon fa fa-user"></i>
+                                                                <input aria-required="true" size="30" value="" name="author" id="author" type="text" class="form-control" placeholder="Your name *">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group wt-input-icon">
+                                                            <div class="input-group">
+                                                                <i class="input-group-addon fa fa-envelope"></i>
+                                                                <input aria-required="true" size="30" value="" name="email" id="email" type="text" class="form-control" placeholder="Email Address *">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>                                                      
+                                            <div class="comment-form-comment">
+                                                <div class="form-group wt-input-icon">
+                                                    <div class="input-group">
+                                                        <i class="input-group-addon fa fa-pencil v-align-t "></i>
+                                                        <textarea aria-required="true" rows="8" cols="45" name="comment" id="comment" class="form-control" placeholder="Message *"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-submit m-t10">                                                       
+                                                <button class="site-button" type="submit">Send Review </button>
+                                            </div>                                                  
+                                        </form> 
+                                    </div> 
+                                </div> -->
+                            <!--Review-->                                                                                   
+                          
+                        </div>
+                        
+                        	<div class="col-md-4">
+                            
+                            <!-- Opening Hour-->
+                                <div class="wt-list-panel bg-white p-a30 m-b30">
+                                    <div class="p-3 border-bottom">{% is_voted product user as pvoted %}
+                                        <a href="{% url 'upvote' product.slug %}?next={{request.build_absolute_uri}}" class="btn btn-lg {% if not pvoted %}btn-success{% else %}btn-danger{% endif %} px-5 rounded" type="button" name="button" style="width: 150px;
+  height: 70px;">
+                                            {% if not pvoted %}
+                                                <i class="fas fa-caret-up fa-fw fa-lg"></i>
+                                                <h6 class="d-inline-block">UPVOTE</h6>
+                                            {% else %}
+                                                <i class="fas fa-caret-down fa-fw fa-lg"></i>
+                                                <h6 class="d-inline-block">DOWNVOTE</h6>
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                    <div class="wt-list-single-about-detail">
+                                        <h6 class="text-muted">Recent Votes</h6>
+                                            {% get_recent_votes product as recent_votes %}
+                                        <table class="table">
+                                            {% for uinput in recent_votes %}
+                                            {% with uinput.user as vote_user %}
+                                            <tr>
+                                                <td>
+                                                    <i class="fas fa-user"></i>
+                                                    {{vote_user.username}}
+                                                </td>
+                                                <td>
+                                                    <i class="fas fa-clock"></i>
+                                                    {{uinput.mod_at|timesince}}
+                                                </td>
+                                            </tr>
+                                                {% endwith %}
+                                                {% endfor %}
+                                        </table>
+                                        
+                                    </div>
+                                </div>
+                             <!-- Opening Hour End-->
+                             
+                            <!-- Hosted By-->
+                                <div class="wt-list-panel bg-white p-a30 m-b30">
+                                    <div class="wt-list-single-about-detail">
+                                        <h4 class="wt-list-panel-title m-t0">Owner</h4>
+                                        
+                                        <div class="wt-list-provider-location-box">
+                                            <div class="wt-list-provider-info-wrap">
+                                                <div class="wt-list-provider-pro-label">
+                                                    <span class="bg-primary radius-xl wt-list-labels"><i class="fa fa-star text-white m-lr5"></i>Featured</span>
+                                                    <span class="btn-success radius-xl wt-list-labels"><i class="fa fa-check text-white m-lr5"></i>Verified</span>
+                                                </div>                                            
+                                                <div class="wt-list-provider-pro-pic">
+                                                    <img src="{{product.icon.url}} " style="no-repeat 0px 0px; overflow:hidden;
+                                                                                                    -webkit-border-radius:60px;
+                                                                                                     -moz-border-radius:60px;
+                                                                                                     border-radius:60px;
+                                                                                                     width:120px;
+                                                                                                     height:120px;"   alt="" class="radius-bx">
+                                                </div>
+                                                <div class="wt-list-provider-pro-name">{{product.owner}}</div>
+                                                <div class="wt-list-provider-pro-position">Owner of {{product.title}} </div>
+                                                <!-- <div class="wt-list-provider-pro-phone"><i class="fa fa-phone"></i>+321-456-7891 </div> -->
+                                                <div class="wt-list-provider-pro-email"><i class="fa fa-envelope"></i> {{product.email}}</div>
+                                                                                        
+                                            </div>
+                                            <div class="text-center m-t20">
+                                            	<a href="{{product.whatsapp}}" class="site-button" target="blank">Book</a>
+                                            </div>
+                                        </div>  
+                                        
+                                    </div>
+                                </div>
+                             <!-- Hosted By End-->                               
+                             
+                             <!-- Get in touch-->
+                                <!-- <div class="wt-list-panel bg-white p-a30 m-b30">
+                                    <div class="wt-list-single-about-detail">
+                                        <h4 class="wt-list-panel-title m-t0">Get In touch</h4>
+                                        
+                                        <div class="wt-list-single-message-box">
+                                             <form>
+                                             	<div class="form-group">
+                                             	<textarea class="form-control" placeholder="Message" rows="4" cols="40"></textarea>
+                                                </div>
+                                             </form> 
+                                            <div class="text-center m-t20">
+                                            	<a href="#" class="site-button">Send Message</a>
+                                            </div>
+                                        </div>  
+                                        
+                                    </div>
+                                </div> -->
+                             <!-- Get in touch End--> 
+                             
+                             <!-- Similar Listing-->
+                                <!-- <div class="wt-list-panel bg-white p-a30 m-b30">
+                                    <div class="wt-list-single-about-detail">
+                                        <h4 class="wt-list-panel-title m-t0">Similar Listing</h4>
+                                        
+                                        <div class="wt-similar-listing">
+                                           
+                                            <div class="wt-similar-listing-box clearfix">
+                                                <div class="wt-similar-listing-media">
+                                                    <img src="images\blog\recent-blog\pic1.jpg" alt="">
+                                                </div>
+                                                <div class="wt-similar-listing-info">
+                                                    <div class="wt-similar-listing-header">
+                                                        <h6 class="wt-similar-listing-title">Luxary Hotel-Spa</h6>
+                                                    </div>                                                    
+                                                    <div class="wt-similar-listing-meta">
+                                                        <ul>
+                                                            <li class="wt-similar-listing-date">25 March</li>
+                                                        </ul>
+                                                    </div>                                            
+                                                </div>
+                                            </div>
+                                            <div class="wt-similar-listing-box clearfix">
+                                                <div class="wt-similar-listing-media">
+                                                    <img src="images\blog\recent-blog\pic2.jpg" alt="">
+                                                </div>
+                                                <div class="wt-similar-listing-info">
+                                                    <div class="wt-similar-listing-header">
+                                                        <h6 class="wt-similar-listing-title"> Automotive and Transport </h6>
+                                                    </div>                                                    
+                                                    <div class="wt-similar-listing-meta">
+                                                        <ul>
+                                                            <li class="wt-similar-listing-date">25 March</li>
+                                                        </ul>
+                                                    </div>                                            
+                                                </div>
+                                            </div>
+                                            <div class="wt-similar-listing-box clearfix">
+                                                <div class="wt-similar-listing-media">
+                                                    <img src="images\blog\recent-blog\pic3.jpg" alt="">
+                                                </div>
+                                                <div class="wt-similar-listing-info">
+                                                    <div class="wt-similar-listing-header">
+                                                        <h6 class="wt-similar-listing-title">Luxury Restourant</h6>
+                                                    </div>                                                    
+                                                    <div class="wt-similar-listing-meta">
+                                                        <ul>
+                                                            <li class="wt-similar-listing-date">25 March</li>
+                                                        </ul>
+                                                    </div>                                            
+                                                </div>
+                                            </div>                                                                                        
+
+                                          
+                                        </div>
+                                        
+                                    </div>
+                                </div> -->
+                             <!-- Similar Listing End--> 
+                             
+                             <!-- Price Range-->
+                                <!-- <div class="wt-list-panel bg-white p-a30 m-b30">
+                                    <div class="wt-list-single-about-detail">
+                                        <h4 class="wt-list-panel-title m-t0">Price Range</h4>
+                                        
+                                        <div class="wt-list-single-price-range">
+											<div class="price-from text-center">
+                                                <h2 class="m-b0"><span>$</span>15</h2>
+                                                <p>From</p>
+                                            </div>
+                                            <div class="price-arrow text-center">
+                                                 <span><i class="fa fa-long-arrow-right"></i></span>
+                                            </div>                                            
+                                            <div class="price-to text-center">
+                                                <h2 class="m-b0"><span>$</span>160</h2>
+                                                <p>To</p>
+                                            </div>
+                                        </div>  
+                                        
+                                    </div>
+                                </div> -->
+                             <!-- Price Range End-->                                                           
+                             
+                                                                                     
+                            </div>
+                      </div>
+
+                </div>      
+            </div>          
+            <!-- SECTION CONTENT END  -->
+
+        </div>
+        <!-- CONTENT END -->
+         <!-- FOOTER START -->
+       <!--  <footer class="site-footer footer-large footer-dark text-white">
+            
+            <!-- FOOTER BLOCKES START ->  
+            <div class="footer-top">
+                <div class="container">
+                    <div class="row">
+                    
+                        <div class="col-md-4 col-sm-6">  
+                            <div class="widget widget_about">
+                                <div class="logo-footer clearfix p-b15">
+                                    <a href="index-1.html"><img src="images\logo-dark.png" alt=""></a>
+                                </div>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p> 
+                                <p>Eiusmod tempor is incididunt ut labore et dolore. morem isa ipsum dolor sit amet.</p>
+                                <ul class="widget_address"> 
+                                    <li> <i class="sl-icon-phone text-primary"></i> <b class="p-lr5">Tel:</b> (654) 321-7654 </li>
+                                    <li><i class="sl-icon-envelope-open text-primary"></i> <b class="p-lr5">Email:</b>mail@dummy123.com </li>
+                                    <li><i class="sl-icon-location text-primary"></i> <b class="p-lr5">Location:</b> 145 N Los Ave, NY</li>
+                                </ul>   
+                            </div>
+
+                        </div> 
+
+                        <div class="col-lg-4 col-md-4 col-sm-6">
+                            <div class="widget recent-posts-entry">
+                                <h4 class="widget-title  text-uppercase">Recent Posts</h4>
+                                <div class="section-content">
+                                    <div class="widget-post-bx">
+                                        <div class="widget-post clearfix">
+                                            <div class="wt-post-media">
+                                                <img src="images\blog\recent-blog\pic1.jpg" alt="">
+                                            </div>
+                                            <div class="wt-post-info">
+                                                <div class="wt-post-header">
+                                                    <h6 class="post-title">Lorem ipsum dolor sit amet</h6>
+                                                </div>
+                                                <div class="wt-post-meta">
+                                                    <ul>
+                                                        <li class="post-author">25 Dec</li>
+                                                        <li class="post-comment"> 20comment</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="widget-post clearfix">
+                                            <div class="wt-post-media">
+                                                <img src="images\blog\recent-blog\pic2.jpg" alt="">
+                                            </div>
+                                            <div class="wt-post-info">
+                                                <div class="wt-post-header">
+                                                    <h6 class="post-title">Debitis nihil placeat, illum est </h6>
+                                                </div>
+                                                <div class="wt-post-meta">
+                                                    <ul>
+                                                        <li class="post-author">25 Dec</li>
+                                                        <li class="post-comment"> 15 comment</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="widget-post clearfix">
+                                            <div class="wt-post-media">
+                                                <img src="images\blog\recent-blog\pic3.jpg" alt="">
+                                            </div>
+                                            <div class="wt-post-info">
+                                                <div class="wt-post-header">
+                                                    <h6 class="post-title">Lorem ipsum dolor sit amet</h6>
+                                                </div>
+                                                <div class="wt-post-meta">
+                                                    <ul>
+                                                        <li class="post-author">25 Dec</li>
+                                                        <li class="post-comment"> 20comment</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="widget-post clearfix">
+                                            <div class="wt-post-media">
+                                                <img src="images\blog\recent-blog\pic1.jpg" alt="">
+                                            </div>
+                                            <div class="wt-post-info">
+                                                <div class="wt-post-header">
+                                                    <h6 class="post-title">Debitis nihil placeat, illum est </h6>
+                                                </div>
+                                                <div class="wt-post-meta">
+                                                    <ul>
+                                                        <li class="post-author">25 Dec</li>
+                                                        <li class="post-comment"> 15 comment</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>                                                                                
+                                    </div>
+                                </div>
+                            </div>           
+                        </div>
+                         
+						<div class="col-md-4 col-sm-12">
+                            <div class="widget widget_services">
+                                <h4 class="widget-title">Useful links</h4>
+                                <ul>
+                                    <li><a href="javascript:;">About</a></li>
+                                    <li><a href="javascript:;">Pricing Plan</a></li>
+                                    <li><a href="javascript:;">Career</a></li>
+                                    <li><a href="javascript:;">Our Team</a></li>
+                                    <li><a href="javascript:;">Services</a></li>
+                                    <li><a href="javascript:;">Gallery</a></li>
+                                </ul>
+                            </div>
+                            
+                            <div class="widget widget_payment">
+                                <h4 class="widget-title">Payment</h4>
+                                <ul class="footer-payments">
+                                    <li><a href="javascript:;"><i class="fa fa-cc-amex"></i></a></li>
+                                    <li><a href="javascript:;"><i class="fa fa-cc-visa "></i></a></li>
+                                    <li><a href="javascript:;"><i class="fa fa-credit-card-alt"></i></a></li> 
+                                    <li><a href="javascript:;"><i class="fa fa-cc-mastercard"></i></a></li> 
+                                    <li><a href="javascript:;"><i class="fa fa-cc-paypal"></i></a></li> 
+                                </ul>
+                            </div>                            
+                             
+                            <!-- SOCIAL LINKS ->
+                            <div class="widget widget_social_inks">
+                                <ul class="social-icons social-square social-light">
+                                    <li><a href="javascript:void(0);" class="fa fa-facebook"></a></li>
+                                    <li><a href="javascript:void(0);" class="fa fa-twitter"></a></li>
+                                    <li><a href="javascript:void(0);" class="fa fa-linkedin"></a></li>
+                                    <li><a href="javascript:void(0);" class="fa fa-rss"></a></li>
+                                    <li><a href="javascript:void(0);" class="fa fa-youtube"></a></li>
+                                    <li><a href="javascript:void(0);" class="fa fa-instagram"></a></li>
+                                </ul>
+                            </div>                        
+                        </div> 
+                                              
+                    </div>
+                </div>
+            </div> -->
+            <!-- FOOTER COPYRIGHT ->
+            
+            <div class="footer-bottom bg-dark">
+              <div class="container">
+                  <div class="row">
+                    <div class="wt-footer-bot-center m-b10">
+                        <span class="copyrights-text">© 2018 Your Company. All Rights Reserved. Designed By pixelwebart.</span>
+                    </div>
+                    <div class="wt-footer-bot-center">
+                        <ul class="copyrights-nav"> 
+                            <li><a href="javascript:void(0);">Terms  &amp; Condition</a></li>
+                            <li><a href="javascript:void(0);">Privacy Policy</a></li>
+                            <li><a href="contact-1.html">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+              </div>   
+            </div>   
+
+
+        </footer>
+        <!-- FOOTER END -->
+        
+        <!-- BUTTON TOP START -->
+		<button class="scroltop"><span class="fa fa-angle-up  relative" id="btn-vibrate"></span></button>       
+    </div>
+ 
+<!-- LOADING AREA START ===== -->
+<div class="loading-area">
+    <div class="loading-box"></div>
+    <div class="loading-pic">
+        <div class='load-pin load-bounce'></div>
+		<div class='load-pulse'></div>	
+        <div class="cssload-container">
+            <div class="cssload-loading"><i></i><i></i><i></i><i></i></div>
+        </div>
+    </div>
+</div>
+<!-- LOADING AREA  END ====== -->
+
+<!-- JAVASCRIPT  FILES ========================================= --> 
+<script src="{% static 'js\jquery-2.2.0.min.js' %}"></script><!-- JQUERY.MIN JS -->
+<script src="{% static 'js\moment.min.js' %}"></script><!-- FOR datetimepicker -->
+<script src="{% static 'js\bootstrap.min.js' %}"></script><!-- BOOTSTRAP.MIN JS -->
+<script src="{% static 'js\bootstrap-select.min.js' %}"></script><!-- Form js -->
+<script src="{% static 'js\bootstrap-slider.min.js' %}"></script><!-- Form js -->
+<script src="{% static 'js\bootstrap-datetimepicker.js' %}"></script><!-- Form js -->
+<script src="{% static 'js\jquery.bootstrap-touchspin.min.js' %}"></script><!-- FORM JS -->
+
+<script src="{% static 'js\magnific-popup.min.js' %}"></script><!-- MAGNIFIC-POPUP JS -->
+<script src="{% static 'js\waypoints.min.js' %}"></script><!-- WAYPOINTS JS -->
+<script src="{% static 'js\counterup.min.js' %}"></script><!-- COUNTERUP JS -->
+<script src="{% static 'js\waypoints-sticky.min.js' %}"></script><!-- COUNTERUP JS -->
+
+<script src="{% static 'js\isotope.pkgd.min.js' %}"></script><!-- MASONRY  -->
+
+<script src="{% static 'js\owl.carousel.min.js' %}"></script><!-- OWL  SLIDER  -->
+<script src="{% static 'js\jquery.owl-filter.js' %}"></script>
+
+<script src="{% static 'js\stellar.min.js' %}"></script><!-- PARALLAX BG IMAGE   -->
+<script src="{% static 'js\jquery.bgscroll.js' %}"></script><!-- BACKGROUND SCROLL -->
+
+<script src="{% static 'js\dropzone.js' %}"></script><!-- IMAGE UPLOAD  -->
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_8C7p0Ws2gUu7wo0b6pK9Qu7LuzX2iWY&libraries=places&callback=initAutocomplete"></script>
+<script src="{% static 'js\infobox.min.js' %}"></script><!-- MAP CLUSTER  -->
+<script src="{% static 'js\markerclusterer.js' %}"></script><!-- MAP CLUSTER  -->
+<script src="{% static 'js\maps.js' %}"></script><!-- MAP CLUSTER  -->
+<script src="{% static 'js\map-cluster-rating.js' %}"></script><!-- MAP CLUSTER  -->
+
+<script src="{% static 'js\m-custom-scrollbar.min.js' %}"></script><!-- my account left panel scroller -->
+
+<!-- Timing Countdown -->
+<script src="{% static 'js\kinetic.js' %}"></script>
+<script src="{% static 'js\jquery.final-countdown.js' %}"></script>
+
+<script src="{% static 'js\custom.js' %}"></script><!-- CUSTOM FUCTIONS  -->
+
+</body>
+
+</html>
